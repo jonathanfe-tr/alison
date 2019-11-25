@@ -1,0 +1,4 @@
+argparse
+prometheus_client
+dnspython
+gevent

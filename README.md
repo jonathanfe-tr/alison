@@ -34,6 +34,12 @@ Event loop based concurrency:
 
 This proxy should run as a sidecar to some dns caching service (DNSMasq for example).
 
+## Installing
+Alison is distributed as a python command line tool. just copy this repo using 'git clone', and run the following command in the root directory of the project:
+```
+pip3 install .
+```
+
 ## CMD
 Alison will listen on port 8888 for udp and tcp
 ```
@@ -47,6 +53,16 @@ alison --tcp --udp
      /_/    \_\_|_|___/\___/|_| |_|  
                    jonatanzafar59@gmail.com  
 
-2018-10-24 08:40:55,328 INFO  Starting ALISON...
+2018-10-24 08:40:55,328 INFO  Alison started on 127.0.0.1:8888
 
+```
+
+## DOCKER
+build the docker image using the following command:
+```
+docker build -t alison .
+```
+then you can run Alison as a docker container using:
+```
+docker run -p 8888:8888/TCP -p  8888:8888/UDP alison
 ```

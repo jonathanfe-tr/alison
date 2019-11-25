@@ -9,9 +9,9 @@ class TCPListener(StreamServer):
 
     def handle(self, source, address):
         client = ClientContextTCP(source)
-        result = client.serve_connection()
+        client.serve_connection()
 
-        return result
+        # return result
 
 class UDPListener(DatagramServer):
     def __init__(self, addr, port):
@@ -19,6 +19,6 @@ class UDPListener(DatagramServer):
 
     def handle(self, data, address):
         client = ClientContextUDP(self.socket, data, address)
-        result = client.serve_connection()
+        client.serve_connection()
 
-        return result
+        # return result

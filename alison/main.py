@@ -1,7 +1,8 @@
 import argparse
+# from .alison import Alison
 from .alison import Alison
 import gevent
-from prometheus_client import start_http_server
+# from prometheus_client import start_http_server
 ALISON_VERSION = "0.0.1"
 
 
@@ -26,7 +27,6 @@ def set_parser():
     return args
 
 def main():
-    # start_http_server(8000)
     args = set_parser()
     print_logo()
     alison = Alison()
@@ -38,5 +38,5 @@ def main():
     gevent.wait()
 
 
-if __name__ == "__main__": # pragma: no cover
+if __name__ == "__main__": 
     main()

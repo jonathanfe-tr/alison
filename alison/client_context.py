@@ -8,7 +8,7 @@ HOST, PORT = '1.1.1.1', 853
 class ClientContext:
     def __init__(self, client_socket):
         self.client_socket = client_socket
-        pass
+        # pass
 
     def validate_input(self, data):
         try:
@@ -25,6 +25,7 @@ class ClientContext:
         data = upstream.send_recv(data)
         # data = self.fromTCP(data)
         self.send_data(data)
+        upstream.disconnect()
 
     def receive_data(self):
         raise NotImplementedError
@@ -70,10 +71,13 @@ class Upstream:
         sock.settimeout(100)
         return sock
 
+    def disconnect(self):
+        self.wrappedSocket.close()
+
     def connect(self):
         self._wrap_session()
         try:
-            logger.debug("Connecting %r:%r" %(HOST, PORT))
+            # logger.debug("Connecting %r:%r" %(HOST, PORT))
             self.wrappedSocket.connect((HOST, PORT))
         except Exception as e:
             logger.error('Connection failed to %r:%r' %(HOST, PORT))
@@ -87,8 +91,9 @@ class Upstream:
 
     def send_recv(self, message):
         self.upstream_manager.send(message)
-        logger.debug('Closing connection')
-        return self.upstream_manager.recv()
+        response = self.upstream_manager.recv()
+        logger.debug('finished DNS query')
+        return response
 
 class AlisonTCPClient():
     def __init__(self, client_socket):
