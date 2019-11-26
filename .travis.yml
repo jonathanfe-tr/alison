@@ -5,7 +5,7 @@ python:
 services:
 - docker
 before_install:
-    - .scripts/ecr_credentials.sh
+    - ./scripts/ecr_credentials.sh
 install:
 - pip install -r requirements.txt
 script:
