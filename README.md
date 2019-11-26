@@ -66,3 +66,10 @@ then you can run Alison as a docker container using:
 ```
 docker run -p 8888:8888/TCP -p  8888:8888/UDP alison
 ```
+
+## BUILD
+the build process is coded into .travis.yml, it includes:
+* installing requirements.txt
+* running tests
+* building the docker image
+* pushing to aws ECR
