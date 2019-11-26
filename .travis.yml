@@ -1,0 +1,25 @@
+sudo: required
+language: python
+python:
+- '3.7'
+services:
+- docker
+before_install:
+    - ./ecr_credentials.sh
+install:
+- pip install -r requirements.txt
+script:
+- echo 'Testing!'
+- python tests.py
+after_success:
+- docker --version
+- pip install --user awscli
+- export PATH=$PATH:$HOME/.local/bin
+- eval $(aws ecr get-login --region us-east-1 --no-include-email)
+- docker build -t jonatanzafar59/alison .
+- docker tag jonatanzafar59/alison:latest 001284663739.dkr.ecr.us-east-1.amazonaws.com/alison:latest
+- docker push 001284663739.dkr.ecr.us-east-1.amazonaws.com/alison:latest
+env:
+  global:
+  - secure: nCd3YJFBNEm/pZUWmDqsxbNWWx9Rc2xonwFH0+uPw47XPfS/hDw8hfErs5zq181B95fW3dgLuioEvwjs1PV3xfii5jmxEFjL0rJCq/GihLmIGG8tFRGkxjvn9yGVb6AS0bPJ5qxitwqKXrr2Mnsawy+TtNg3FtbFZ2DzTeLTr99oPcDO1gCO/vP7W8L1Zt9U0ivX6T6yKpLU3GXEJsUq8H/TsNYO55i0Fis8EnCyA94PdobYf035DQJ5ahvu+MJcG3EKYQ7uCRFmnFmWwFBssGYLD7l1UEk0CzPX25txTo3R9o3r7To0iTgg6OzLwGSnErVDIBWjbaq06CxkS5d/T1l2WjMPP3cEh+NQl+xaRfkbtb9PJW0iqMAByb0MJ5b5VAWoPd/wfqH5+nhClTCXquqdVc7jS0rQTlLi69ziEe/7HXoYjmFBq7lrrSU5Agk1CTdM8EoZ8J0dO3FkJnGRduLxoZpIGqUA4Vy42BJ5D4VGNgq/9DYz4ARsrYCmGvwxt1oYFDv8GUYYCmiBn4UfMtmgX/9r2myu82byXFa2ZS1PagQcaWIpw/eJ5Jz7S3eIMEVcUcA7lIVkrqNso7Hp0E+By0xhdC4ukDO/EdeRT5Tv5IBo+qmDmdSzqD/+y64n8M+Iendx4MLdPiyKeX/8L+oNIth5/q/HahiPazAUqMg=
+  - secure: kMDDRIqDzYqijNECbEhbzwr90Gp+kFD4/7E3oul2bx0JSKph9JqVRIjgiS/LBtEiJz1PaHu+LCJOymIB4usQYjxU5xxeg49I/sZKndvwewVzJqb9pmc+9bEi59JjT881wBIb3IUmsQgAbLSKoUHisemIpSyEFDPouB980NSNhk/zkF7m5hNyxqh8IYDVUJzltvGqRyG/zu0AK9FlnZ4nMK7RW8EV/codMhQHZaUsk3zuLIwXj0YguU+U0kpBPBk2vO7GO6FrboCm+MoQuSJRYny0baeFRuGXhEFi4RM0M+h9pxH1gEWzxvlfyIWlltxrNWs07JgpS/KjK8bdopm+Bw4kqXqWnA6heyaMNh1ihVGGLwPb5O+Eq9j+0Oi2DLjycWuboA9Gw462594DADwmCF9DKHmK9IH5NkV6jcLCwhgZChwBxDz4CG0uLH8Qi8xoGYFl5C6hJzlHTvkszlX82wkCyd+POyB8N1OWHsBfXDzeKQKFs+gb1reU/gAxud+79kD/cEHy4PqlINwQpSF/ckksYZfq3/TLkLvnODKUSnCbg+0dMuhZp3YwHp+c2KEQIZwSnt2oIQ2q1QlpeSvRSO67P3+SMtWxU1yVDRJDPE8aqBiCmy71Snl2qrwb8NZ05xM3q/2eROek1P1NMVfWx6O0KLKoJURrgjTH8GtSD68=
