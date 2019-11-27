@@ -1,6 +1,6 @@
 import argparse
-# from .alison import Alison
 from .alison import Alison
+from .monitoring import start_monitoring
 import gevent
 # from prometheus_client import start_http_server
 ALISON_VERSION = "0.0.1"
@@ -35,6 +35,7 @@ def main():
         alison.start_tcp()
     if args.udp:
         alison.start_udp()
+    # start_monitoring()
     gevent.wait()
 
 

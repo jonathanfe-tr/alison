@@ -73,3 +73,7 @@ the build process is coded into .travis.yml, it includes:
 * running tests
 * building the docker image
 * pushing to aws ECR
+
+
+# DEPLOY
+* the CI will redeploy the FARGATE container after push to ECR (cluster: sample-cluster, service: alison-udp)
