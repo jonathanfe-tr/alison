@@ -18,6 +18,9 @@ dist = setup(
         'argparse',
         'prometheus_client',
         'dnspython',
+        'tornado',
+        'healthcheck',
+        'flask',
         'gevent'
     ],
     python_requires='>=3.4, <4',
